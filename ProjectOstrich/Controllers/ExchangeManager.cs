@@ -4,6 +4,7 @@ using Android.App;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Text;
 
 namespace ProjectOstrich
 {
@@ -28,24 +29,31 @@ namespace ProjectOstrich
 			Console.WriteLine ("Connection!");
 
 			var outtask = Task.Factory.StartNew (() => {
-				using (var writer = new StreamWriter (output)) {
+				//using (var writer = new StreamWriter (output)) {
 					Random random = new Random();
 					var data = _cache.Messages.OrderBy((i) => random.NextDouble()).First().ToJson();
-					writer.WriteLine (data);
-				}
+					var bytes = Encoding.UTF8.GetBytes(data);
+				output.Write(BitConverter.GetBytes(bytes.Length), 0, 4);
+				output.Write(bytes, 0, bytes.Length);
+				//}
 				System.Threading.Thread.Sleep(100);
 				output.Close ();
 				Console.WriteLine("out");
 			});
 
 			var intask = Task.Factory.StartNew (() => {
-				using (var reader = new StreamReader (input)) {
-					System.Threading.Thread.Sleep(1000);
-					var data = reader.ReadLine ();
+				//using (var reader = new StreamReader (input)) {
+					//System.Threading.Thread.Sleep(1000);
+					var buffer = new byte[4];
+					input.Read(buffer, 0, 4);
+				var length = BitConverter.ToInt32(buffer, 0);
+				var bytes = new byte[length];
+				input.Read(bytes, 0, bytes.Length);
+				var data = Encoding.UTF8.GetString(bytes);
 					var remoteCache = Cache.FromJson (data);
 
 					_cache.Add (remoteCache);
-				}
+				//}
 				System.Threading.Thread.Sleep(100);
 				input.Close ();
 				Console.WriteLine("in");

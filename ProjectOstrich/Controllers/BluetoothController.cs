@@ -29,7 +29,7 @@ namespace ProjectOstrich
 		{
 			_adapter = BluetoothAdapter.DefaultAdapter;
 			_activity = activity;
-			_listener = _adapter.ListenUsingInsecureRfcommWithServiceRecord (BluetoothName, ID);
+			_listener = _adapter.ListenUsingRfcommWithServiceRecord (BluetoothName, ID);
 			_scanner = new System.Timers.Timer ();
 			_scanner.Elapsed += (sender, e) => HandleScan();
 			_scanner.Interval = TimeSpan.FromSeconds (5).TotalMilliseconds;
@@ -68,7 +68,7 @@ namespace ProjectOstrich
 
 			_scanner.Start ();
 			_adapter.CancelDiscovery ();
-			_adapter.StartDiscovery ();
+			//_adapter.StartDiscovery ();
 			HandleScan ();
 		}
 
@@ -84,7 +84,7 @@ namespace ProjectOstrich
 				*/
 
 			if (DateTime.Now - _lastDiscover > TimeSpan.FromMinutes (3)) {
-				_adapter.StartDiscovery ();
+				//_adapter.StartDiscovery ();
 				_lastDiscover = DateTime.Now;
 			}
 			//if(!_adapter.IsDiscovering)
@@ -108,22 +108,23 @@ namespace ProjectOstrich
 
 			if (action == BluetoothDevice.ActionFound) {
 				Console.WriteLine ("Found");
-				_connecting = true;
-				_adapter.CancelDiscovery ();
 				BluetoothDevice device = (BluetoothDevice)intent.GetParcelableExtra (BluetoothDevice.ExtraDevice);
 				Console.WriteLine (device.Name);
-				var connection = device.CreateInsecureRfcommSocketToServiceRecord (ID);
-				connection.ConnectAsync ().ContinueWith ((t) => {
-					Console.WriteLine(t.IsFaulted);
-					if (!t.IsFaulted)
-					{
-						OutgoingSocket(connection.InputStream, connection.OutputStream);
-						connection.Close();
-					}
-					_connecting = false;
-					_adapter.StartDiscovery();
-					_lastDiscover = DateTime.Now;
-				});
+				if (device.BondState == Bond.Bonded) {
+					_connecting = true;
+					_adapter.CancelDiscovery ();
+					var connection = device.CreateRfcommSocketToServiceRecord (ID);
+					connection.ConnectAsync ().ContinueWith ((t) => {
+						Console.WriteLine (t.IsFaulted);
+						if (!t.IsFaulted) {
+							OutgoingSocket (connection.InputStream, connection.OutputStream);
+							connection.Close ();
+						}
+						_connecting = false;
+						//_adapter.StartDiscovery ();
+						_lastDiscover = DateTime.Now;
+					});
+				}
 			}
 
 			if (action == BluetoothAdapter.ActionScanModeChanged) {
@@ -136,7 +137,7 @@ namespace ProjectOstrich
 
 			if (action == BluetoothAdapter.ActionDiscoveryFinished) {
 				if (!_connecting) {
-					_adapter.StartDiscovery ();
+					//_adapter.StartDiscovery ();
 					_lastDiscover = DateTime.Now;
 				}
 			}
