@@ -45,7 +45,10 @@ namespace ProjectOstrich
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ostrich = 2130837504;
+			public const int ic_action_edit = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int ostrich = 2130837505;
 			
 			static Drawable()
 			{
@@ -60,8 +63,11 @@ namespace ProjectOstrich
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			// aapt resource value: 0x7f060001
+			public const int hiss = 2131099649;
+			
+			// aapt resource value: 0x7f060000
+			public const int messages = 2131099648;
 			
 			static Id()
 			{
@@ -85,6 +91,22 @@ namespace ProjectOstrich
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int actionbar = 2131034112;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

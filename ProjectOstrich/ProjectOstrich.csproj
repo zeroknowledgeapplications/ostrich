@@ -61,6 +61,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ostrich.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ostrich.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ostrich.png" />
+    <AndroidResource Include="Resources\menu\actionbar.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -69,5 +74,6 @@
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
 </Project>
