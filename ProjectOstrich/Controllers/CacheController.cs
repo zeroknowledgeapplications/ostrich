@@ -32,7 +32,7 @@ namespace ProjectOstrich
 			}
 		}
 
-		public static Cache WriteCache(Cache cache)
+		public static void WriteCache(Cache cache)
 		{
 			var data = cache.ToJson ();
 			var tmpdir = System.IO.Path.GetTempPath ();
@@ -40,7 +40,7 @@ namespace ProjectOstrich
 
 			using (var s = i.OpenWrite ()) {
 				using (var w = new StreamWriter (s)) {
-					w.WriteLine (data);
+					w.Write (data);
 				}
 			}
 		}

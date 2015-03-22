@@ -18,12 +18,12 @@ namespace ProjectOstrich
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			items = new string[] { "Vegetables","Fruits","Flower Buds","Legumes","Bulbs","Tubers" };
-			Cache c = new Cache ();
-			ListAdapter = new CacheAdapter (this, c);
 			SetContentView (Resource.Layout.Main);
-			_manager = new ExchangeManager (BaseContext, this, c);
-			c.Add (new Message (){ Data = "Hello World!" });
+
+			CacheController.Load ();
+
+			ListAdapter = new CacheAdapter (this, CacheController.Cache);
+			_manager = new ExchangeManager (BaseContext, this, CacheController.Cache);
 		}
 
 		protected override void OnListItemClick(ListView l, View v, int position, long id)
@@ -44,6 +44,7 @@ namespace ProjectOstrich
 			switch (item.ItemId)
 			{
 			case Resource.Id.hiss:
+				CacheController.Save ();
 				StartActivity (typeof(HissActivity));
 				return true;
 
