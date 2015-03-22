@@ -26,20 +26,20 @@ namespace ProjectOstrich
 		}
 
 		public void Add(Cache cache) {
-			Messages.Clear ();
-			foreach (var m in cache.Messages) {
+			//Messages.Clear ();
+			/*foreach (var m in cache.Messages) {
 				Add (m);
 				Console.WriteLine (m);
-			}
-			/*foreach (var m in cache.Messages) {
+			}*/
+			foreach (var m in cache.Messages) {
 				if (!Messages.Contains (m)) {
 					Add (m);
 				}
 				else {
-					var other = Messages.First ((i) => i == m);
+					var other = Messages.First ((i) => i.Equals(m));
 					other.HopCount = Math.Min (other.HopCount, m.HopCount + 1);
 				}
-			}*/
+			}
 		}
 
 		public static Cache FromJson(string data) {

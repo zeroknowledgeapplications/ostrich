@@ -34,15 +34,14 @@ namespace ProjectOstrich
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
-			switch (item.ItemId)
-			{
+			switch (item.ItemId) {
 			case Resource.Id.hiss:
 				CacheController.Save ();
 				StartActivity (typeof(HissActivity));
 				return true;
 
 			default:
-				return base.OnOptionsItemSelected(item);
+				return base.OnOptionsItemSelected (item);
 			}
 		}
 	}

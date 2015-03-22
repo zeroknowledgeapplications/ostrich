@@ -12,11 +12,13 @@ namespace ProjectOstrich
 	{
 		private BluetoothController _bluetooth;
 		private Cache _cache;
+		private Activity _activity;
 
 		public ExchangeManager (Context context, Activity activity, Cache cache)
 		{
 			_cache = cache;
 			_bluetooth = new BluetoothController (activity);
+			_activity = activity;
 
 			_bluetooth.IncomingSocket = HandleSocket;
 			_bluetooth.OutgoingSocket = HandleSocket;
@@ -31,36 +33,41 @@ namespace ProjectOstrich
 			var outtask = Task.Factory.StartNew (() => {
 				//using (var writer = new StreamWriter (output)) {
 					Random random = new Random();
-					var data = _cache.Messages.OrderBy((i) => random.NextDouble()).First().ToJson();
+					var data = _cache.ToJson();
 					var bytes = Encoding.UTF8.GetBytes(data);
 				output.Write(BitConverter.GetBytes(bytes.Length), 0, 4);
-				output.Write(bytes, 0, bytes.Length);
-				//}
-				System.Threading.Thread.Sleep(100);
-				output.Close ();
+				if(bytes.Length != 0)
+					output.Write(bytes, 0, bytes.Length);
+				System.Threading.Thread.Sleep(1000);
 				Console.WriteLine("out");
 			});
 
 			var intask = Task.Factory.StartNew (() => {
-				//using (var reader = new StreamReader (input)) {
-					//System.Threading.Thread.Sleep(1000);
-					var buffer = new byte[4];
-					input.Read(buffer, 0, 4);
+
+				var buffer = new byte[4];
+				input.Read(buffer, 0, 4);
 				var length = BitConverter.ToInt32(buffer, 0);
-				var bytes = new byte[length];
-				input.Read(bytes, 0, bytes.Length);
-				var data = Encoding.UTF8.GetString(bytes);
+				if(length != 0)
+				{
+					var bytes = new byte[length];
+					input.Read(bytes, 0, bytes.Length);
+					var data = Encoding.UTF8.GetString(bytes);
 					var remoteCache = Cache.FromJson (data);
 
-					_cache.Add (remoteCache);
-				//}
-				System.Threading.Thread.Sleep(100);
-				input.Close ();
+					_activity.RunOnUiThread(() => {
+						_cache.Add (remoteCache);
+					});
+				}
+				System.Threading.Thread.Sleep(1000);
+
 				Console.WriteLine("in");
 			});
 
 			Task.WaitAll (intask, outtask);
+			System.Threading.Thread.Sleep (2000);
 			Console.WriteLine ("done");
+			input.Close ();
+			output.Close ();
 		}
 	}
 }

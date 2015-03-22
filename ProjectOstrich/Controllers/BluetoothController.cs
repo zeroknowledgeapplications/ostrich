@@ -5,6 +5,7 @@ using Android.Content;
 using System.Threading.Tasks;
 using System.IO;
 using Android.App;
+using System.Collections.Generic;
 
 namespace ProjectOstrich
 {
@@ -19,6 +20,8 @@ namespace ProjectOstrich
 		private Task _acceptTask = Task.FromResult<object>(null);
 		private bool _connecting = false;
 		private DateTime _lastDiscover = DateTime.Now;
+		private Task _handleDiscoveries;
+		private List<BluetoothDevice> _discoveries = new List<BluetoothDevice>();
 
 		public Action<Stream, Stream> IncomingSocket { get; set; }
 		public Action<Stream, Stream> OutgoingSocket { get; set; }
@@ -30,9 +33,9 @@ namespace ProjectOstrich
 			_adapter = BluetoothAdapter.DefaultAdapter;
 			_activity = activity;
 			_listener = _adapter.ListenUsingRfcommWithServiceRecord (BluetoothName, ID);
-			_scanner = new System.Timers.Timer ();
-			_scanner.Elapsed += (sender, e) => HandleScan();
-			_scanner.Interval = TimeSpan.FromSeconds (5).TotalMilliseconds;
+			//_scanner = new System.Timers.Timer ();
+			//_scanner.Elapsed += (sender, e) => HandleScan();
+			//_scanner.Interval = TimeSpan.FromSeconds (5).TotalMilliseconds;
 
 			var filter = new IntentFilter (BluetoothDevice.ActionFound);
 			activity.RegisterReceiver (this, filter);
@@ -42,34 +45,12 @@ namespace ProjectOstrich
 
 		public void Start()
 		{
-			if (_scanner.Enabled)
-				return;
-
-			Task.Factory.StartNew (() => {
-				while(_scanner.Enabled)
-				{
-					try {
-					var socket = _listener.Accept();
-						_connecting = true;
-						_adapter.CancelDiscovery();
-						IncomingSocket(socket.InputStream, socket.OutputStream);
-						socket.Close();
-						socket.Dispose();
-						_connecting = false;
-						_adapter.StartDiscovery();
-					} catch (Exception){}
-
-				}
-			});
+			_adapter.StartDiscovery();
 
 			var discover = new Intent (BluetoothAdapter.ActionRequestDiscoverable);
 			discover.PutExtra (BluetoothAdapter.ExtraDiscoverableDuration, 3600);
 			_activity.StartActivity (discover);
-
-			_scanner.Start ();
-			_adapter.CancelDiscovery ();
-			//_adapter.StartDiscovery ();
-			HandleScan ();
+		
 		}
 
 		private void HandleScan() {
@@ -108,23 +89,12 @@ namespace ProjectOstrich
 
 			if (action == BluetoothDevice.ActionFound) {
 				Console.WriteLine ("Found");
+
+
 				BluetoothDevice device = (BluetoothDevice)intent.GetParcelableExtra (BluetoothDevice.ExtraDevice);
 				Console.WriteLine (device.Name);
-				if (device.BondState == Bond.Bonded) {
-					_connecting = true;
-					_adapter.CancelDiscovery ();
-					var connection = device.CreateRfcommSocketToServiceRecord (ID);
-					connection.ConnectAsync ().ContinueWith ((t) => {
-						Console.WriteLine (t.IsFaulted);
-						if (!t.IsFaulted) {
-							OutgoingSocket (connection.InputStream, connection.OutputStream);
-							connection.Close ();
-						}
-						_connecting = false;
-						//_adapter.StartDiscovery ();
-						_lastDiscover = DateTime.Now;
-					});
-				}
+
+				_discoveries.Add (device);
 			}
 
 			if (action == BluetoothAdapter.ActionScanModeChanged) {
@@ -136,10 +106,37 @@ namespace ProjectOstrich
 			}
 
 			if (action == BluetoothAdapter.ActionDiscoveryFinished) {
-				if (!_connecting) {
-					//_adapter.StartDiscovery ();
-					_lastDiscover = DateTime.Now;
-				}
+
+				_handleDiscoveries = Task.Factory.StartNew (() => {
+					foreach(var dev in _discoveries)
+					{
+						try {
+							Console.WriteLine(dev.Name);
+							if(dev.BondState != Bond.Bonded)
+								continue;
+							Console.WriteLine("bonded");
+							var socket = dev.CreateRfcommSocketToServiceRecord(ID);
+							socket.Connect();
+							OutgoingSocket(socket.InputStream, socket.OutputStream);
+							socket.Close();
+							socket.Dispose();
+						} catch (Exception e){
+							Console.WriteLine(e);
+						}
+					}
+
+					for(int i = 0; i < 20; i++)
+					{
+						try {
+							Console.WriteLine("listen");
+							var accept = _listener.Accept(1000);
+							IncomingSocket(accept.InputStream, accept.OutputStream);
+						} catch(Exception){}
+					}
+
+					Console.WriteLine("discovery");
+					_adapter.StartDiscovery();
+				});
 			}
 		}
 	}
