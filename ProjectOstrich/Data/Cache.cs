@@ -17,7 +17,21 @@ namespace ProjectOstrich
 		}
 
 		public void Add(Cache cache) {
-			// TODO: add caches
+			Dictionary<string, Message> messages = new Dictionary<string, Message> ();
+			foreach (Message message in Messages) {
+				messages.Add (message.Identifier + message.Data, message);
+			}
+			foreach(Message message in cache.Messages) {
+				if (messages.ContainsKey (message.Identifier + message.Data)) {
+					if (message.HopCount + 1 < messages [message.Identifier + message.Data].HopCount) {
+						messages [message.Identifier + message.Data].HopCount = message.HopCount + 1;
+					}
+				} else {
+					message.HopCount++;
+					messages.Add(message.Identifier + message.Data, message);
+				}
+			}
+			Messages = messages.Values.ToList();
 		}
 
 		public static Cache FromJson(string data) {
