@@ -26,5 +26,18 @@ namespace ProjectOstrich
 			inflater.Inflate (Resource.Menu.actionbar, menu);
 			return base.OnCreateOptionsMenu (menu);
 		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+			case Resource.Id.hiss:
+				StartActivity (typeof(HissActivity));
+				return true;
+
+			default:
+				return base.OnOptionsItemSelected(item);
+			}
+		}
 	}
 }
