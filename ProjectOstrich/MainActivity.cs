@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace ProjectOstrich
 {
-	[Activity (Label = "ProjectOstrich", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "ProjectOstrich", MainLauncher = true, Icon = "@drawable/ostrich")]
 	public class MainActivity : Activity
 	{
 		int count = 1;
