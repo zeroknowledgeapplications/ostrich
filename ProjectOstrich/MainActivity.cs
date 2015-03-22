@@ -13,7 +13,6 @@ namespace ProjectOstrich
 	public class MainActivity : ListActivity
 	{
 		string[] items;
-		int count = 1;
 		private ExchangeManager _manager;
 
 		protected override void OnCreate (Bundle bundle)
