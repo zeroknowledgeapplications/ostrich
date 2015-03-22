@@ -35,8 +35,10 @@ namespace ProjectOstrich
 						IncomingSocket(t.Result.InputStream, t.Result.OutputStream);
 					});
 
-				if(!_adapter.IsDiscovering)
-					_adapter.StartDiscovery();
+				if(_adapter.IsDiscovering)
+					_adapter.CancelDiscovery();
+
+				_adapter.StartDiscovery();
 			};
 			_scanner.Interval = TimeSpan.FromSeconds (35).TotalMilliseconds;
 
@@ -72,6 +74,7 @@ namespace ProjectOstrich
 
 				var connection = device.CreateInsecureRfcommSocketToServiceRecord (ID);
 				connection.ConnectAsync ().ContinueWith ((t) => {
+					Console.WriteLine(t.IsFaulted);
 					if (t.IsFaulted)
 						return;
 
