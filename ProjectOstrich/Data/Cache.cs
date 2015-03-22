@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace ProjectOstrich
 {
@@ -13,7 +12,7 @@ namespace ProjectOstrich
 		}
 
 		public string ToJson() {
-			return JsonConvert.SerializeObject(Messages);
+			return "{}"; //JsonConvert.SerializeObject(Messages);
 		}
 
 		public void Add(Cache cache) {
@@ -21,7 +20,7 @@ namespace ProjectOstrich
 		}
 
 		public static Cache FromJson(string json) {
-			return JsonConvert.DeserializeObject<Cache> (json);
+			return new Cache(); //JsonConvert.DeserializeObject<Cache> (json);
 		}
 
 	}

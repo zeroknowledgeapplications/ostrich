@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace ProjectOstrich
 {
@@ -15,11 +14,11 @@ namespace ProjectOstrich
 		public DateTime CreatedAt { get; set; }
 
 		public String ToJson() {
-			return JsonConvert.SerializeObject(this);
+			return "{}"; //JsonConvert.SerializeObject(this);
 		}
 
 		public static Message FromJson(string json) {
-			return JsonConvert.DeserializeObject<Message>(json);
+			return new Message (); //JsonConvert.DeserializeObject<Message>(json);
 		}
 
 	}
