@@ -63,14 +63,11 @@ namespace ProjectOstrich
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int editText1 = 2131099648;
-			
-			// aapt resource value: 0x7f060003
-			public const int hiss = 2131099651;
-			
 			// aapt resource value: 0x7f060002
-			public const int messages = 2131099650;
+			public const int hiss = 2131099650;
+			
+			// aapt resource value: 0x7f060000
+			public const int hiss_text = 2131099648;
 			
 			// aapt resource value: 0x7f060001
 			public const int send_hiss = 2131099649;

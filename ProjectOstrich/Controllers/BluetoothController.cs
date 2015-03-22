@@ -67,7 +67,7 @@ namespace ProjectOstrich
 			string action = intent.Action;
 
 			if (action == BluetoothDevice.ActionFound) {
-
+				Console.WriteLine ("Found");
 				BluetoothDevice device = (BluetoothDevice)intent.GetParcelableExtra (BluetoothDevice.ExtraDevice);
 
 				var connection = device.CreateInsecureRfcommSocketToServiceRecord (ID);
