@@ -1,16 +1,49 @@
 ﻿using Android.Content;
-using Java.IO;
+using System.IO;
 using System;
 
 namespace ProjectOstrich
 {
-	public class CacheController
+	public static class CacheController
 	{
-		public CacheController ()
+		public static Cache Cache;
+
+		public static void Load()
 		{
+			Cache = ReadCache ();
 		}
 
+		public static void Save()
+		{
+			WriteCache (Cache);
+		}
 
+		public static Cache ReadCache()
+		{
+			var tmpdir = System.IO.Path.GetTempPath ();
+			FileInfo i = new FileInfo (Path.Combine (tmpdir, "cache.dat"));
+			if (!i.Exists)
+				return new Cache ();
+
+			using (var s = i.OpenRead ()) {
+				using (var r = new StreamReader (s)) {
+					return Cache.FromJson (r.ReadToEnd ());
+				}
+			}
+		}
+
+		public static Cache WriteCache(Cache cache)
+		{
+			var data = cache.ToJson ();
+			var tmpdir = System.IO.Path.GetTempPath ();
+			FileInfo i = new FileInfo (Path.Combine (tmpdir, "cache.dat"));
+
+			using (var s = i.OpenWrite ()) {
+				using (var w = new StreamWriter (s)) {
+					w.WriteLine (data);
+				}
+			}
+		}
 
 
 		//public void SaveMessage(Message message) {
