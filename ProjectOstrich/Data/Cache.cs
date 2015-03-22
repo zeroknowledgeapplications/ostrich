@@ -48,7 +48,7 @@ namespace ProjectOstrich
 		}
 
 		public static Cache FromJson(string data) {
-			List<Message> messages = data.Split ("++##+*$%^".ToCharArray ()).Select (s => Message.FromJson (s)).ToList ();
+			List<Message> messages = data.Split ("++##+*$%^".ToCharArray ()).Where(d => !String.IsNullOrWhiteSpace(d).Select (s => Message.FromJson (s)).ToList ();
 			messages = messages.Where (
 				m => ((m.CreatedAt + TimeSpan.FromDays(14)) > DateTime.UtcNow && m.HopCount < 10)
 			).ToList();
