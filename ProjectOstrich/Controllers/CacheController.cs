@@ -19,7 +19,9 @@ namespace ProjectOstrich
 				Cache = new Cache ();
 			}
 
-			Cache.OnMessageReceived += (sender, e) => WriteCache (Cache);
+			Cache.OnMessageReceived += (sender, e) => {
+				WriteCache (Cache);
+			};
 		}
 
 		public static void Save()
