@@ -70,7 +70,7 @@ namespace ProjectOstrich
 
 				BluetoothDevice device = (BluetoothDevice)intent.GetParcelableExtra (BluetoothDevice.ExtraDevice);
 
-				var connection = device.CreateInsecureRfcommSocketToServiceRecord (UUID);
+				var connection = device.CreateInsecureRfcommSocketToServiceRecord (ID);
 				connection.ConnectAsync ().ContinueWith ((t) => {
 					if (t.IsFaulted)
 						return;
