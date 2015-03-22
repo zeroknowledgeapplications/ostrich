@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace ProjectOstrich
 {
-	[Activity (Label = "HissActivity", Icon = "@drawable/ostrich", WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateAlwaysVisible)]			
+	[Activity (Label = "HissActivity", Icon = "@drawable/ostrich", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateAlwaysVisible)]			
 	public class HissActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
