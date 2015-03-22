@@ -42,7 +42,6 @@ namespace ProjectOstrich
 					OnMessageReceived (this, message);
 				}
 			}
-			Messages = messages.Values.ToList();
 		}
 
 		public static Cache FromJson(string data) {
