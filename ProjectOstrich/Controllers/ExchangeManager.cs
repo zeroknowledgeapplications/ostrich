@@ -17,6 +17,8 @@ namespace ProjectOstrich
 
 			_bluetooth.IncomingSocket = HandleIncomingSocket;
 			_bluetooth.OutgoingSocket = HandleOutgoingSocket;
+
+			_bluetooth.Start ();
 		}
 
 		private void HandleIncomingSocket(Stream input, Stream output)
