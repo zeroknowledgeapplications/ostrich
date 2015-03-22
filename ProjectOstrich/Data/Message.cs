@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ProjectOstrich
 {
@@ -15,6 +16,16 @@ namespace ProjectOstrich
 		public string Identifier { get; set; }
 
 		public string Data { get; set; }
+
+		public int HopCount { get; set; }
+
+		public DateTime CreatedAt { get; set; }
+
+		public String ToJson { 
+			get {
+				return "";
+			}
+		}
 
 	}
 }
