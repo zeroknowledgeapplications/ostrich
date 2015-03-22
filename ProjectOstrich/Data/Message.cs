@@ -17,7 +17,7 @@ namespace ProjectOstrich
 
 		public String ToJson() {
 			return Base64Encode (Data) + _sep +
-				HopCount.ToString () + _sep +
+				HopCount + _sep +
 				Identifier + _sep +
 				CreatedAt.Ticks;
 		}

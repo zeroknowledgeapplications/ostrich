@@ -40,7 +40,7 @@ namespace ProjectOstrich
 
 			using (var s = i.OpenWrite ()) {
 				using (var w = new StreamWriter (s)) {
-					w.WriteLine (data);
+					w.Write (data);
 				}
 			}
 		}
