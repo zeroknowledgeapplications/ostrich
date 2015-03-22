@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="ProjectOstrich.ProjectOstrich">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="19" />
-	<application android:label="ProjectOstrich"></application>
+	<application android:label="Ostrich"></application>
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 </manifest>

@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace ProjectOstrich
 {
-	[Activity (Label = "ProjectOstrich", MainLauncher = true, Icon = "@drawable/ostrich")]
+	[Activity (Label = "Ostrich", MainLauncher = true, Icon = "@drawable/ostrich")]
 	public class MainActivity : ListActivity
 	{
 		private ExchangeManager _manager;
