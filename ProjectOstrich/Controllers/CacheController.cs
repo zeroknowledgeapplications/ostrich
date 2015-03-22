@@ -10,6 +10,8 @@ namespace ProjectOstrich
 
 		public static void Load()
 		{
+			if (Cache != null)
+				return;
 			Cache = ReadCache ();
 		}
 
