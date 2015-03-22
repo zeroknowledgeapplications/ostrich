@@ -43,6 +43,7 @@ namespace ProjectOstrich
 			});
 
 			Task.WaitAll (intask, outtask);
+			Console.WriteLine ("done");
 		}
 	}
 }

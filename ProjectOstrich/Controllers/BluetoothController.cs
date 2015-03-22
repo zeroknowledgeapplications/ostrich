@@ -28,7 +28,7 @@ namespace ProjectOstrich
 			_scanner = new System.Timers.Timer ();
 			_scanner.Elapsed += (sender, e) => {
 				if(_acceptTask.IsCompleted)
-					_acceptTask = _listener.AcceptAsync(30000).ContinueWith((t) => {
+					_acceptTask = _listener.AcceptAsync(3000).ContinueWith((t) => {
 						if(t.IsFaulted)
 							return;
 
@@ -41,7 +41,7 @@ namespace ProjectOstrich
 
 				_adapter.StartDiscovery();
 			};
-			_scanner.Interval = TimeSpan.FromSeconds (35).TotalMilliseconds;
+			_scanner.Interval = TimeSpan.FromSeconds (4).TotalMilliseconds;
 
 			var filter = new IntentFilter (BluetoothDevice.ActionFound);
 			activity.RegisterReceiver (this, filter);
