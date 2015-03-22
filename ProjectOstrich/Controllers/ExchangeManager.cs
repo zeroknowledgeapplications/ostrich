@@ -12,7 +12,7 @@ namespace ProjectOstrich
 
 		public ExchangeManager (Context context, Activity activity)
 		{
-			_cache = new Cache (context);
+			_cache = new Cache ();
 			_bluetooth = new BluetoothController (activity);
 
 			_bluetooth.IncomingSocket = HandleIncomingSocket;
