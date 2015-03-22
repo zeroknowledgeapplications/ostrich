@@ -23,6 +23,14 @@ namespace ProjectOstrich
 			_activity = activity;
 			FilterIdentifiers = new List<string> ();
 			_cache = cache;
+			_cache.OnMessageReceived += (sender, e) => {
+				if (ShouldFilter)
+					if (!FilterIdentifiers.Contains (e.Identifier))
+						return;
+
+				_messages.Add (e);
+				this.NotifyDataSetChanged ();
+			};
 		}
 
 		public override int Count {

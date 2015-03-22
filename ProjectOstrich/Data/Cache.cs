@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ProjectOstrich
 {
 	public class Cache
 	{
+		public event EventHandler<Message> OnMessageReceived = delegate { };
 
 		List<Message> Messages {get; set; }
 

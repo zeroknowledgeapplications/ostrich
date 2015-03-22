@@ -22,7 +22,7 @@ namespace ProjectOstrich
 			Cache c = new Cache ();
 			ListAdapter = new CacheAdapter (this, c);
 			SetContentView (Resource.Layout.Main);
-			_manager = new ExchangeManager (BaseContext, this);
+			_manager = new ExchangeManager (BaseContext, this, c);
 		}
 
 		protected override void OnListItemClick(ListView l, View v, int position, long id)

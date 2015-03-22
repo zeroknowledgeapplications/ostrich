@@ -10,9 +10,9 @@ namespace ProjectOstrich
 		private BluetoothController _bluetooth;
 		private Cache _cache;
 
-		public ExchangeManager (Context context, Activity activity)
+		public ExchangeManager (Context context, Activity activity, Cache cache)
 		{
-			_cache = new Cache ();
+			_cache = cache;
 			_bluetooth = new BluetoothController (activity);
 
 			_bluetooth.IncomingSocket = HandleIncomingSocket;
@@ -23,8 +23,6 @@ namespace ProjectOstrich
 
 		private void HandleIncomingSocket(Stream input, Stream output)
 		{
-			Console.WriteLine ("Incoming!");
-
 			using (var reader = new StreamReader (input)) {
 				var remoteCache = Cache.FromJson (reader.ReadToEnd ());
 
@@ -37,8 +35,6 @@ namespace ProjectOstrich
 
 		private void HandleOutgoingSocket(Stream input, Stream output)
 		{
-			Console.WriteLine ("Outgoing!");
-
 			using (var writer = new StreamWriter (output)) {
 				writer.Write (_cache.ToJson ());
 			}
