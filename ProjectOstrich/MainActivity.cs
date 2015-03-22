@@ -25,12 +25,6 @@ namespace ProjectOstrich
 			_manager = new ExchangeManager (BaseContext, this, CacheController.Cache);
 		}
 
-		protected override void OnListItemClick(ListView l, View v, int position, long id)
-		{
-			var t = items[position];
-			Android.Widget.Toast.MakeText(this, t, Android.Widget.ToastLength.Short).Show();
-		}
-
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
 			MenuInflater inflater = new MenuInflater (this);
