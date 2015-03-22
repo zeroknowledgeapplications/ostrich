@@ -26,6 +26,7 @@ namespace ProjectOstrich
 			button.Click += delegate {
 				// Store message
 				CacheController.Cache.Add (new Message (){ Data = FindViewById<TextView>(Resource.Id.hiss_text).Text });
+				CacheController.Save();
 
 				// Go back to main menu
 				StartActivity(typeof(MainActivity));
