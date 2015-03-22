@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ProjectOstrich
 {
 	public class Message
 	{
 
-		private const string _sep = "@^*^&*%@";
+		private const string _sep = "@@";
 
 		public string Identifier { get; set; }
 
@@ -30,7 +31,7 @@ namespace ProjectOstrich
 		}
 
 		public static Message FromJson(string data) {
-			string[] chucks = data.Split (_sep.ToCharArray());
+			string[] chucks = Regex.Split (data, _sep);
 			return new Message {
 				Data = Base64Decode (chucks [0]),
 				HopCount = int.Parse (chucks [1]),

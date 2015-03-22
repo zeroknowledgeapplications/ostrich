@@ -22,14 +22,26 @@ namespace ProjectOstrich
 			_activity = activity;
 			FilterIdentifiers = new List<string> ();
 			_cache = cache;
-			_cache.OnMessageReceived += (sender, e) => {
-				if (ShouldFilter)
-					if (!FilterIdentifiers.Contains (e.Identifier))
-						return;
+			_cache.OnMessageReceived += (sender, e) => AddMessage (e);
 
-				_messages.Add (e);
-				this.NotifyDataSetChanged ();
-			};
+			foreach (var m in _cache.Messages)
+				AddMessage (m);
+		}
+
+		public CacheAdapter(Activity activity, Cache cache, List<string> filterIdentifiers) : this(activity, cache)
+		{
+			ShouldFilter = true;
+			FilterIdentifiers.AddRange (filterIdentifiers);
+		}
+
+		private void AddMessage(Message m)
+		{
+			if (ShouldFilter)
+			if (!FilterIdentifiers.Contains (m.Identifier))
+				return;
+
+			_messages.Add (m);
+			this.NotifyDataSetChanged ();
 		}
 
 		public override int Count {

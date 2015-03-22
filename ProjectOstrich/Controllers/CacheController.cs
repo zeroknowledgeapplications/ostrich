@@ -12,12 +12,12 @@ namespace ProjectOstrich
 		{
 			if (Cache != null)
 				return;
-			//try {
+			try {
 				Cache = ReadCache ();
-			//} catch (Exception e) {
-			//	ClearCache ();
-			//	Cache = new Cache ();
-			//}
+			} catch (Exception e) {
+				ClearCache ();
+				Cache = new Cache ();
+			}
 
 			Cache.OnMessageReceived += (sender, e) => WriteCache (Cache);
 		}

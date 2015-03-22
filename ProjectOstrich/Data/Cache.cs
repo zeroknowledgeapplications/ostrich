@@ -8,15 +8,11 @@ namespace ProjectOstrich
 	{
 		public event EventHandler<Message> OnMessageReceived = delegate { };
 
-		List<Message> Messages {get; set; }
+		public List<Message> Messages {get; set; }
 
 		public Cache()
 		{
 			Messages = new List<Message> ();
-		}
-
-		public List<Message> GetMessage() {
-			return new List<Message> ();
 		}
 
 		public string ToJson() {
@@ -48,7 +44,7 @@ namespace ProjectOstrich
 		}
 
 		public static Cache FromJson(string data) {
-			List<Message> messages = data.Split ("++##+*$%^".ToCharArray ()).Where(d => !String.IsNullOrWhiteSpace(d)).Select (s => Message.FromJson (s)).ToList ();
+			List<Message> messages = data.Split (new string[]{"++##+*$%^"}, StringSplitOptions.RemoveEmptyEntries).Where(d => !String.IsNullOrWhiteSpace(d)).Select (s => Message.FromJson (s)).ToList ();
 			messages = messages.Where (
 				m => ((m.CreatedAt + TimeSpan.FromDays(14)) > DateTime.UtcNow && m.HopCount < 10)
 			).ToList();
