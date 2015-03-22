@@ -50,9 +50,13 @@ namespace ProjectOstrich
 				{
 					try {
 					var socket = _listener.Accept();
+						_connecting = true;
+						_adapter.CancelDiscovery();
 						IncomingSocket(socket.InputStream, socket.OutputStream);
 						socket.Close();
 						socket.Dispose();
+						_connecting = false;
+						_adapter.StartDiscovery();
 					} catch (Exception){}
 
 				}
@@ -79,8 +83,7 @@ namespace ProjectOstrich
 				});
 				*/
 
-			Console.WriteLine (_adapter.ScanMode);
-			if (DateTime.Now - _lastDiscover > TimeSpan.FromMinutes (1)) {
+			if (DateTime.Now - _lastDiscover > TimeSpan.FromMinutes (3)) {
 				_adapter.StartDiscovery ();
 				_lastDiscover = DateTime.Now;
 			}

@@ -27,8 +27,10 @@ namespace ProjectOstrich
 
 		public void Add(Cache cache) {
 			Messages.Clear ();
-			foreach (var m in cache.Messages)
+			foreach (var m in cache.Messages) {
 				Add (m);
+				Console.WriteLine (m);
+			}
 			/*foreach (var m in cache.Messages) {
 				if (!Messages.Contains (m)) {
 					Add (m);

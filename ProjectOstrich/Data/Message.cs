@@ -60,6 +60,11 @@ namespace ProjectOstrich
 			}
 			return false;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Message: Identifier={0}, Data={1}, HopCount={2}, CreatedAt={3}]", Identifier, Data, HopCount, CreatedAt);
+		}
 	}
 }
 

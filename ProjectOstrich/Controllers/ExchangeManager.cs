@@ -3,6 +3,7 @@ using Android.Content;
 using Android.App;
 using System.IO;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ProjectOstrich
 {
@@ -28,11 +29,13 @@ namespace ProjectOstrich
 
 			var outtask = Task.Factory.StartNew (() => {
 				using (var writer = new StreamWriter (output)) {
-					var data = _cache.ToJson ();
+					Random random = new Random();
+					var data = _cache.Messages.OrderBy((i) => random.NextDouble()).First().ToJson();
 					writer.WriteLine (data);
 				}
 				System.Threading.Thread.Sleep(100);
 				output.Close ();
+				Console.WriteLine("out");
 			});
 
 			var intask = Task.Factory.StartNew (() => {
@@ -45,6 +48,7 @@ namespace ProjectOstrich
 				}
 				System.Threading.Thread.Sleep(100);
 				input.Close ();
+				Console.WriteLine("in");
 			});
 
 			Task.WaitAll (intask, outtask);
