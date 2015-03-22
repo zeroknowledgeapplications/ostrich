@@ -10,7 +10,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Views.InputMethods;
 
 namespace ProjectOstrich
 {
@@ -40,9 +39,6 @@ namespace ProjectOstrich
 				button.Enabled = editText.Text.Length > 2 && editText.Text.Length < 140;
 			};
 
-			InputMethodManager inputMethodManager = Application.GetSystemService(Context.InputMethodService) as InputMethodManager;
-			inputMethodManager.ShowSoftInput(this.CurrentFocus, ShowFlags.Forced);
-			inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
 		}
 	}
 }
