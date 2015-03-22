@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectOstrich
 {
@@ -12,15 +13,15 @@ namespace ProjectOstrich
 		}
 
 		public string ToJson() {
-			return "{}"; //JsonConvert.SerializeObject(Messages);
+			return string.Join ("++##+*$%^", Messages.Select (m => m.ToJson ()));
 		}
 
 		public void Add(Cache cache) {
 			// TODO: add caches
 		}
 
-		public static Cache FromJson(string json) {
-			return new Cache(); //JsonConvert.DeserializeObject<Cache> (json);
+		public static Cache FromJson(string data) {
+			return new Cache() {Messages = data.Split ("++##+*$%^".ToCharArray()).Select(s => Message.FromJson(s)).ToList()};
 		}
 
 	}
