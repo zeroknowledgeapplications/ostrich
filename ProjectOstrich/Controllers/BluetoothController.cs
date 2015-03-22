@@ -18,8 +18,8 @@ namespace ProjectOstrich
 		private System.Timers.Timer _scanner;
 		private Task _acceptTask = Task.FromResult(null);
 
-		public Action<IOStream, IOStream> IncomingSocket { get; set; }
-		public Action<IOStream, IOStream> OutgoingSocket { get; set; }
+		public Action<Stream, Stream> IncomingSocket { get; set; }
+		public Action<Stream, Stream> OutgoingSocket { get; set; }
 
 		public BluetoothController (Activity activity)
 		{
