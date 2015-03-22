@@ -13,14 +13,14 @@ namespace ProjectOstrich
 	public class MainActivity : ListActivity
 	{
 		string[] items;
-		int count = 1;
 		private ExchangeManager _manager;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			items = new string[] { "Vegetables","Fruits","Flower Buds","Legumes","Bulbs","Tubers" };
-			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
+			Cache c = new Cache ();
+			ListAdapter = new CacheAdapter (this, c);
 			SetContentView (Resource.Layout.Main);
 			_manager = new ExchangeManager (BaseContext, this);
 		}
