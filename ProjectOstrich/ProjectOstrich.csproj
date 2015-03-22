@@ -53,6 +53,7 @@
     <Compile Include="Data\Message.cs" />
     <Compile Include="Controllers\ExchangeManager.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\CacheAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
