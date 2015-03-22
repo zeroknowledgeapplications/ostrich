@@ -10,12 +10,23 @@ namespace ProjectOstrich
 
 		List<Message> Messages {get; set; }
 
+		public Cache()
+		{
+			Messages = new List<Message> ();
+		}
+
 		public List<Message> GetMessage() {
 			return new List<Message> ();
 		}
 
 		public string ToJson() {
 			return string.Join ("++##+*$%^", Messages.Select (m => m.ToJson ()));
+		}
+
+		public void Add(Message m)
+		{
+			Messages.Add (m);
+			OnMessageReceived (this, m);
 		}
 
 		public void Add(Cache cache) {
