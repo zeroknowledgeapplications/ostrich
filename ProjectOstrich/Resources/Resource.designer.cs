@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("SneakerFetch.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("ProjectOstrich.Resource", IsApplication=true)]
 
-namespace SneakerFetch
+namespace ProjectOstrich
 {
 	
 	

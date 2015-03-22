@@ -7,9 +7,9 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace SneakerFetch
+namespace ProjectOstrich
 {
-	[Activity (Label = "SneakerFetch", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "ProjectOstrich", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
 		int count = 1;
