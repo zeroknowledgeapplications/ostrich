@@ -22,6 +22,13 @@ namespace ProjectOstrich
 				CreatedAt.Ticks;
 		}
 
+		public Message()
+		{
+			CreatedAt = DateTime.UtcNow;
+			HopCount = 0;
+			Identifier = new Random ().NextDouble ().ToString ();
+		}
+
 		public static Message FromJson(string data) {
 			string[] chucks = data.Split (_sep.ToCharArray());
 			return new Message {

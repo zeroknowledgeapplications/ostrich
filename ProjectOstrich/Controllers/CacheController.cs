@@ -12,7 +12,14 @@ namespace ProjectOstrich
 		{
 			if (Cache != null)
 				return;
-			Cache = ReadCache ();
+			//try {
+				Cache = ReadCache ();
+			//} catch (Exception e) {
+			//	ClearCache ();
+			//	Cache = new Cache ();
+			//}
+
+			Cache.OnMessageReceived += (sender, e) => WriteCache (Cache);
 		}
 
 		public static void Save()
@@ -45,6 +52,13 @@ namespace ProjectOstrich
 					w.Write (data);
 				}
 			}
+		}
+
+		public static void ClearCache()
+		{
+			var tmpdir = System.IO.Path.GetTempPath ();
+			FileInfo i = new FileInfo (Path.Combine (tmpdir, "cache.dat"));
+			i.Delete ();
 		}
 
 
