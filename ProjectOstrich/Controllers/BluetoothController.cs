@@ -28,7 +28,7 @@ namespace ProjectOstrich
 			_scanner = new System.Timers.Timer ();
 			_scanner.Elapsed += (sender, e) => {
 				if(_acceptTask.IsCompleted)
-					_acceptTask = _listener.AcceptAsync(30).ContinueWith((t) => {
+					_acceptTask = _listener.AcceptAsync(30000).ContinueWith((t) => {
 						if(t.IsFaulted)
 							return;
 
