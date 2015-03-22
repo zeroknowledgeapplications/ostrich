@@ -33,6 +33,7 @@ namespace ProjectOstrich
 							return;
 
 						IncomingSocket(t.Result.InputStream, t.Result.OutputStream);
+						t.Result.Close();
 					});
 
 				if(_adapter.IsDiscovering)
@@ -79,6 +80,7 @@ namespace ProjectOstrich
 						return;
 
 					OutgoingSocket(connection.InputStream, connection.OutputStream);
+					connection.Close();
 				});
 			}
 		}
