@@ -23,6 +23,7 @@ namespace ProjectOstrich
 
 		private void HandleIncomingSocket(Stream input, Stream output)
 		{
+			Console.WriteLine ("Incoming!");
 			using (var reader = new StreamReader (input)) {
 				var remoteCache = Cache.FromJson (reader.ReadToEnd ());
 
@@ -35,6 +36,7 @@ namespace ProjectOstrich
 
 		private void HandleOutgoingSocket(Stream input, Stream output)
 		{
+			Console.WriteLine ("Outgoing!");
 			using (var writer = new StreamWriter (output)) {
 				writer.Write (_cache.ToJson ());
 			}

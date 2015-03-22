@@ -38,6 +38,7 @@ namespace ProjectOstrich
 				} else {
 					message.HopCount++;
 					messages.Add(message.Identifier + message.Data, message);
+					OnMessageReceived (this, message);
 				}
 			}
 			Messages = messages.Values.ToList();
