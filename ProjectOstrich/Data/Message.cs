@@ -50,6 +50,16 @@ namespace ProjectOstrich
 			return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
 		}
 
+		public override bool Equals (object other)
+		{
+			if (other is Message) {
+				var m = other as Message;
+				return m.CreatedAt == CreatedAt &&
+				m.Data == Data &&
+				m.Identifier == Identifier;
+			}
+			return false;
+		}
 	}
 }
 

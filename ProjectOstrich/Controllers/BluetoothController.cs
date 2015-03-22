@@ -18,6 +18,7 @@ namespace ProjectOstrich
 		private System.Timers.Timer _scanner;
 		private Task _acceptTask = Task.FromResult<object>(null);
 		private bool _connecting = false;
+		private DateTime _lastDiscover = DateTime.Now;
 
 		public Action<Stream, Stream> IncomingSocket { get; set; }
 		public Action<Stream, Stream> OutgoingSocket { get; set; }
@@ -79,7 +80,10 @@ namespace ProjectOstrich
 				*/
 
 			Console.WriteLine (_adapter.ScanMode);
-
+			if (DateTime.Now - _lastDiscover > TimeSpan.FromMinutes (1)) {
+				_adapter.StartDiscovery ();
+				_lastDiscover = DateTime.Now;
+			}
 			//if(!_adapter.IsDiscovering)
 			//	_adapter.StartDiscovery();
 
@@ -115,6 +119,7 @@ namespace ProjectOstrich
 					}
 					_connecting = false;
 					_adapter.StartDiscovery();
+					_lastDiscover = DateTime.Now;
 				});
 			}
 
@@ -127,8 +132,10 @@ namespace ProjectOstrich
 			}
 
 			if (action == BluetoothAdapter.ActionDiscoveryFinished) {
-				if (!_connecting)
+				if (!_connecting) {
 					_adapter.StartDiscovery ();
+					_lastDiscover = DateTime.Now;
+				}
 			}
 		}
 	}
