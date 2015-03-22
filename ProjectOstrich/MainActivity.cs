@@ -13,11 +13,13 @@ namespace ProjectOstrich
 	public class MainActivity : Activity
 	{
 		int count = 1;
+		private ExchangeManager _manager;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.Main);
+			_manager = new ExchangeManager (BaseContext, this);
 		}
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
