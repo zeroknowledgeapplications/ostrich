@@ -24,8 +24,10 @@ namespace ProjectOstrich
 			// Open the main view if clicked to proceed
 			Button button = FindViewById<Button> (Resource.Id.send_hiss);
 			button.Click += delegate {
-				string text = FindViewById<TextView>(Resource.Id.hiss_text).Text;
-				//FIXME add text to cache
+				// Store message
+				CacheController.Cache.Add (new Message (){ Data = FindViewById<TextView>(Resource.Id.hiss_text).Text });
+
+				// Go back to main menu
 				StartActivity(typeof(MainActivity));
 			};
 		}
