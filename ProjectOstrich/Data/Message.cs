@@ -1,18 +1,11 @@
 ﻿using System;
-using System.IO;
+using Newtonsoft.Json;
 
 namespace ProjectOstrich
 {
 	public class Message
 	{
-		public Message ()
-		{
-		}
 
-		/// <summary>
-		/// Phone number hash.
-		/// </summary>
-		/// <value>The identifier.</value>
 		public string Identifier { get; set; }
 
 		public string Data { get; set; }
@@ -21,10 +14,12 @@ namespace ProjectOstrich
 
 		public DateTime CreatedAt { get; set; }
 
-		public String ToJson { 
-			get {
-				return "";
-			}
+		public static String ToJson(Message message) {
+			return JsonConvert.SerializeObject(message);
+		}
+
+		public static Message FromJson(string json) {
+			return JsonConvert.DeserializeObject<Message>(json);
 		}
 
 	}
