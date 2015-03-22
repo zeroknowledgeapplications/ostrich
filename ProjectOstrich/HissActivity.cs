@@ -21,8 +21,11 @@ namespace ProjectOstrich
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.Hiss);
 
-			// Open the main view if clicked to proceed
+
 			Button button = FindViewById<Button> (Resource.Id.send_hiss);
+			EditText editText = FindViewById<EditText> (Resource.Id.hiss_text);
+
+			// Open the main view if clicked to proceed
 			button.Click += delegate {
 				// Store message
 				CacheController.Cache.Add (new Message (){ Data = FindViewById<TextView>(Resource.Id.hiss_text).Text });
@@ -31,6 +34,11 @@ namespace ProjectOstrich
 				// Go back to main menu
 				StartActivity(typeof(MainActivity));
 			};
+
+			editText.TextChanged += delegate {
+				button.Enabled = editText.Text.Length > 2;
+			};
+
 		}
 	}
 }
