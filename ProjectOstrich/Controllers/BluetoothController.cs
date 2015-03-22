@@ -16,7 +16,7 @@ namespace ProjectOstrich
 		private BluetoothAdapter _adapter;
 		private BluetoothServerSocket _listener;
 		private System.Timers.Timer _scanner;
-		private Task _acceptTask = Task.FromResult(null);
+		private Task _acceptTask = Task.FromResult<object>(null);
 
 		public Action<Stream, Stream> IncomingSocket { get; set; }
 		public Action<Stream, Stream> OutgoingSocket { get; set; }
