@@ -53,6 +53,7 @@
     <Compile Include="Controllers\BluetoothController.cs" />
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\Message.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

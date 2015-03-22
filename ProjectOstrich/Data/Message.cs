@@ -14,8 +14,8 @@ namespace ProjectOstrich
 
 		public DateTime CreatedAt { get; set; }
 
-		public static String ToJson(Message message) {
-			return JsonConvert.SerializeObject(message);
+		public String ToJson() {
+			return JsonConvert.SerializeObject(this);
 		}
 
 		public static Message FromJson(string json) {
