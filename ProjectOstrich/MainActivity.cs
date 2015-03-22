@@ -23,6 +23,7 @@ namespace ProjectOstrich
 			ListAdapter = new CacheAdapter (this, c);
 			SetContentView (Resource.Layout.Main);
 			_manager = new ExchangeManager (BaseContext, this, c);
+			c.Add (new Message (){ Data = "Hello World!" });
 		}
 
 		protected override void OnListItemClick(ListView l, View v, int position, long id)
