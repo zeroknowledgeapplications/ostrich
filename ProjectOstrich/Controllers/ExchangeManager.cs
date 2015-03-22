@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.App;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ProjectOstrich
 {
@@ -15,34 +16,33 @@ namespace ProjectOstrich
 			_cache = cache;
 			_bluetooth = new BluetoothController (activity);
 
-			_bluetooth.IncomingSocket = HandleIncomingSocket;
-			_bluetooth.OutgoingSocket = HandleOutgoingSocket;
+			_bluetooth.IncomingSocket = HandleSocket;
+			_bluetooth.OutgoingSocket = HandleSocket;
 
 			_bluetooth.Start ();
 		}
 
-		private void HandleIncomingSocket(Stream input, Stream output)
+		private void HandleSocket(Stream input, Stream output)
 		{
-			Console.WriteLine ("Incoming!");
-			using (var reader = new StreamReader (input)) {
-				var remoteCache = Cache.FromJson (reader.ReadToEnd ());
+			Console.WriteLine ("Connection!");
 
-				_cache.Add (remoteCache);
-			}
+			var outtask = Task.Factory.StartNew (() => {
+				using (var writer = new StreamWriter (output)) {
+					writer.Write (_cache.ToJson ());
+				}
+				output.Close ();
+			});
 
-			input.Close ();
-			output.Close ();
-		}
+			var intask = Task.Factory.StartNew (() => {
+				using (var reader = new StreamReader (input)) {
+					var remoteCache = Cache.FromJson (reader.ReadToEnd ());
 
-		private void HandleOutgoingSocket(Stream input, Stream output)
-		{
-			Console.WriteLine ("Outgoing!");
-			using (var writer = new StreamWriter (output)) {
-				writer.Write (_cache.ToJson ());
-			}
+					_cache.Add (remoteCache);
+				}
+				input.Close ();
+			});
 
-			input.Close ();
-			output.Close ();
+			Task.WaitAll (intask, outtask);
 		}
 	}
 }
