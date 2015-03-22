@@ -19,7 +19,8 @@ namespace ProjectOstrich
 		{
 			base.OnCreate (bundle);
 			items = new string[] { "Vegetables","Fruits","Flower Buds","Legumes","Bulbs","Tubers" };
-			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
+			Cache c = new Cache ();
+			ListAdapter = new CacheAdapter (this, c);
 			SetContentView (Resource.Layout.Main);
 			_manager = new ExchangeManager (BaseContext, this);
 		}
