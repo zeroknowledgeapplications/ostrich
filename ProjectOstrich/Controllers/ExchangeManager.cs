@@ -28,14 +28,16 @@ namespace ProjectOstrich
 
 			var outtask = Task.Factory.StartNew (() => {
 				using (var writer = new StreamWriter (output)) {
-					writer.Write (_cache.ToJson ());
+					var data = _cache.ToJson ();
+					writer.Write (data);
 				}
 				output.Close ();
 			});
 
 			var intask = Task.Factory.StartNew (() => {
 				using (var reader = new StreamReader (input)) {
-					var remoteCache = Cache.FromJson (reader.ReadToEnd ());
+					var data = reader.ReadToEnd ();
+					var remoteCache = Cache.FromJson (data);
 
 					_cache.Add (remoteCache);
 				}
