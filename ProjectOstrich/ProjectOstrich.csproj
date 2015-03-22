@@ -14,7 +14,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>ProjectOstrich</AssemblyName>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -42,29 +42,50 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\Message.cs" />
+    <Compile Include="Controllers\BluetoothController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ostrich.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ostrich.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ostrich.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ostrich.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ostrich.png" />
+    <AndroidResource Include="Resources\menu\actionbar.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_edit.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="json.net">
+      <Version>6.0.8.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
 </Project>
