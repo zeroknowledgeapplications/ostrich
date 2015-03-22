@@ -36,7 +36,7 @@ namespace ProjectOstrich
 			};
 
 			editText.TextChanged += delegate {
-				button.Enabled = editText.Text.Length > 2;
+				button.Enabled = editText.Text.Length > 2 && editText.Text.Length < 140;
 			};
 
 		}
