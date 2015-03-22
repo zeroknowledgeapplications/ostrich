@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Android.App;
 using Android.Widget;
-using Android.App;
 using Android.Views;
 
 namespace ProjectOstrich

@@ -12,7 +12,6 @@ namespace ProjectOstrich
 	[Activity (Label = "ProjectOstrich", MainLauncher = true, Icon = "@drawable/ostrich")]
 	public class MainActivity : ListActivity
 	{
-		string[] items;
 		private ExchangeManager _manager;
 
 		protected override void OnCreate (Bundle bundle)
