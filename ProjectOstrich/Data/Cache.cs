@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ProjectOstrich
 {
@@ -35,7 +36,11 @@ namespace ProjectOstrich
 		}
 
 		public static Cache FromJson(string data) {
-			return new Cache() {Messages = data.Split ("++##+*$%^".ToCharArray()).Select(s => Message.FromJson(s)).ToList()};
+			List<Message> messages = data.Split ("++##+*$%^".ToCharArray ()).Select (s => Message.FromJson (s)).ToList ();
+			messages = messages.Where (
+				m => ((m.CreatedAt + TimeSpan.FromDays(14)) > DateTime.UtcNow && m.HopCount < 10)
+			).ToList();
+			return new Cache { Messages = messages };
 		}
 
 	}
